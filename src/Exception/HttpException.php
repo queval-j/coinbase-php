@@ -37,7 +37,7 @@ class HttpException extends RuntimeException
         return new $class($message, $errors, $e->getRequest(), $response, $e);
     }
 
-    public function __construct($message, array $errors, RequestInterface $request, ResponseInterface $response = null, \Exception $previous)
+    public function __construct($message, array $errors, RequestInterface $request, ?ResponseInterface $response = null, \Exception $previous)
     {
         parent::__construct($message, 0, $previous);
 
