@@ -37,7 +37,7 @@ class HttpException extends RuntimeException
         return new $class($message, $errors, $e->getRequest(), $response, $e);
     }
 
-    public function __construct($message, array $errors, RequestInterface $request, ResponseInterface $response, \Exception $previous)
+    public function __construct($message, array $errors, RequestInterface $request, ResponseInterface $response = null, \Exception $previous)
     {
         parent::__construct($message, 0, $previous);
 
@@ -95,7 +95,7 @@ class HttpException extends RuntimeException
         return $errors;
     }
 
-    private static function exceptionClass(ResponseInterface $response, Error $error = null)
+    private static function exceptionClass(?ResponseInterface $response = null, Error $error = null)
     {
         if ($error) {
             switch ($error->getId()) {
@@ -116,6 +116,10 @@ class HttpException extends RuntimeException
                 case ErrorCode::EXPIRED_TOKEN:
                     return ExpiredTokenException::class;
             }
+        }
+
+        if (!$response) {
+            return HttpException::class;
         }
 
         switch ($response->getStatusCode()) {
