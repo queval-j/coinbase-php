@@ -1,5 +1,5 @@
 {
-    "name": "queval-j/coinbase",
+    "name": "queval-j/coinbase-php",
     "description": "Coinbase API library",
     "keywords": [ "bitcoin", "coinbase" ],
     "homepage": "http://coinbase.com",
