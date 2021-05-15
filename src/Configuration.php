@@ -19,6 +19,7 @@ class Configuration
     private $apiVersion;
     private $caBundle;
     private $logger;
+    private $customTransport = null;
 
     /**
      * Creates a new configuration with OAuth authentication.
@@ -65,7 +66,7 @@ class Configuration
             $this->apiUrl,
             $this->apiVersion,
             $this->authentication,
-            $transport ?: new GuzzleClient()
+            $transport ?? $this->customTransport ?? new GuzzleClient()
         );
 
         $httpClient->setCaBundle($this->caBundle);
@@ -128,5 +129,10 @@ class Configuration
     public function setLogger(LoggerInterface $logger = null)
     {
         $this->logger = $logger;
+    }
+
+    public function setTransport(ClientInterface $customTransport = null)
+    {
+        $this->customTransport = $customTransport;
     }
 }
